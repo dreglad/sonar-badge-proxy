@@ -1,13 +1,15 @@
 package main
 
 import (
+	"crypto/tls"
 	"net/http"
 	"net/url"
 	"os"
 	"strconv"
 	"strings"
 	"time"
-	"crypto/tls"
+
+	"github.com/joho/godotenv"
 )
 
 var metricMapping = map[string]string{
@@ -32,6 +34,10 @@ type Config struct {
 	Remote        *url.URL
 	Secret        string
 	InsecureSkipVerify bool
+}
+
+func init() {
+	godotenv.Load()
 }
 
 func port() string {
