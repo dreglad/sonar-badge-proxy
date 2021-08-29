@@ -158,3 +158,24 @@ func TestSecret_unset(t *testing.T) {
 	os.Unsetenv("SECRET")
 	AssertEqual(t, "", secret(), "Wrong SECRET=%v")
 }
+
+func TestInsecureSkipVerify(t *testing.T) {
+	tests := []struct {
+		value string
+		want  bool
+	}{
+		{"true", true},
+		{"TRUE", true},
+		{"1", true},
+		{"false", false},
+		{"", false},
+	}
+	for _, test := range tests {
+		os.Setenv("INSECURE_SKIP_VERIFY", test.value)
+		AssertEqual(t, test.want, insecureSkipVerify(), "Wrong INSECURE_SKIP_VERIFY=%v")
+	}
+
+	// If the environment variable is not present, it should return false
+	os.Unsetenv("INSECURE_SKIP_VERIFY")
+	AssertEqual(t, false, insecureSkipVerify(), "Wrong INSECURE_SKIP_VERIFY=%v")
+}
