@@ -90,8 +90,8 @@ func secret() string {
 	return os.Getenv("SECRET")
 }
 
-func insecureSkipVerify(s string) bool {
-	s = strings.ToLower(s)
+func insecureSkipVerify() bool {
+	s = strings.ToLower(os.Getenv("INSECURE_SKIP_VERIFY"))
 	return s == "true" || s == "1"
 }
 
