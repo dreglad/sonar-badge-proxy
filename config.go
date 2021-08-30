@@ -90,8 +90,9 @@ func secret() string {
 	return os.Getenv("SECRET")
 }
 
-func insecureSkipVerify() bool {
-	return strings.Compare(os.Getenv("INSECURE_SKIP_VERIFY"),"true") == 0
+func insecureSkipVerify(s string) bool {
+	s = strings.ToLower(s)
+	return s == "true" || s == "1"
 }
 
 // LoadConfig prepares the Config from the environment
